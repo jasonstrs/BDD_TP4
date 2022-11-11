@@ -1,0 +1,20 @@
+<div>
+  <nav class="navbar navbar-dark bg-dark main-nav">
+    <a class="navbar-brand title" href="/" matTooltip="Retournez à l'accueil"
+      >INF3710 - TP4</a
+    >
+  </nav>
+
+  <div class="home" *ngIf="route == ''">
+    <p>Planrepas</p>
+    <button
+      mat-raised-button
+      color="primary"
+      class="btn"
+      routerLink="/planrepas"
+    >
+      Parcourir les planrepas<mat-icon>arrow_right</mat-icon>
+    </button>
+  </div>
+  <router-outlet></router-outlet>
+</div>

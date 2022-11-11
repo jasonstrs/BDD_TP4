@@ -1,0 +1,32 @@
+<div id="planrepas">
+  <h1>Planrepas</h1>
+
+  <div class="divider"></div>
+
+  <table
+    id="ht"
+    align="center"
+    border="1"
+    width="1000"
+    class="table-striped table-hover"
+  >
+    <thead class="header">
+      <th class="contentCell">NUMÉRO PLAN</th>
+      <th class="contentCell">CATÉGORIE</th>
+      <th class="contentCell">NOMBRE PERSONNES</th>
+      <th class="contentCell">NOMBRE CALORIES</th>
+      <th class="contentCell">PRIX</th>
+      <th class="contentCell">NUMÉRO FOURNISSEUR</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let plan of planrepas; let i = index">
+        <td class="contentCell">{{ plan.numeroplan }}</td>
+        <td class="contentCell">{{ plan.categorie }}</td>
+        <td class="contentCell">{{ plan.nbpersonnes }}</td>
+        <td class="contentCell">{{ plan.nbcalories }}</td>
+        <td class="contentCell">{{ plan.prix }}</td>
+        <td class="contentCell">{{ plan.numerofournisseur }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
