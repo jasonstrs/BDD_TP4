@@ -1,6 +1,7 @@
 import { injectable } from "inversify";
 import * as pg from "pg";
 import "reflect-metadata";
+import { Planrepas } from "../../../common/tables/planrepas";
 
 @injectable()
 export class DatabaseService {
@@ -18,6 +19,53 @@ export class DatabaseService {
   public async getAllFromTable(tableName: string): Promise<pg.QueryResult> {
     const client = await this.pool.connect();
     const res = await client.query(`SELECT * FROM ${tableName};`);
+    client.release();
+    return res;
+  }
+
+  public async addPlanrepas(planrepas: Planrepas): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+    const values: any[] = [
+      planrepas.categorie,
+      planrepas.frequence,
+      planrepas.nbpersonnes,
+      planrepas.nbcalories,
+      planrepas.prix,
+      planrepas.numerofournisseur,
+    ];
+    const res = await client.query(
+      `INSERT INTO Planrepas(categorie, frequence, nbpersonnes, nbcalories, prix, numerofournisseur) VALUES($1, $2, $3, $4, $5, $6) RETURNING numeroplan;`,
+      values
+    );
+    client.release();
+    return res;
+  }
+
+  public async modifyPlanrepas(planrepas: Planrepas): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+
+    let modifiedValues = [];
+
+    modifiedValues.push(`categorie = '${planrepas.categorie}'`);
+    modifiedValues.push(`frequence = '${planrepas.frequence}'`);
+    modifiedValues.push(`nbpersonnes = '${planrepas.nbpersonnes}'`);
+    modifiedValues.push(`nbcalories = '${planrepas.nbcalories}'`);
+    modifiedValues.push(`prix = '${planrepas.prix}'`);
+    modifiedValues.push(`numerofournisseur = '${planrepas.numerofournisseur}'`);
+
+    const query = `UPDATE Planrepas SET ${modifiedValues.join(
+      ", "
+    )} WHERE numeroplan = '${planrepas.numeroplan}';`;
+    const res = await client.query(query);
+    client.release();
+    return res;
+  }
+
+  public async deletePlanrepas(planrepas: string): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+    const res = await client.query(
+      `DELETE FROM Planrepas WHERE numeroplan=${planrepas};`
+    );
     client.release();
     return res;
   }

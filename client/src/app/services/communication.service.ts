@@ -31,9 +31,33 @@ export class CommunicationService {
     };
   }
 
-  public getHotels(): Observable<Planrepas[]> {
+  public getPlanrepas(): Observable<Planrepas[]> {
     return this.http
       .get<Planrepas[]>(this.BASE_URL + "/planrepas")
       .pipe(catchError(this.handleError<Planrepas[]>("getPlanrepas")));
+  }
+
+  public getFournisseurs(): Observable<any[]> {
+    return this.http
+      .get<any[]>(this.BASE_URL + "/fournisseur")
+      .pipe(catchError(this.handleError<any[]>("getFournisseurs")));
+  }
+
+  public addPlanrepas(planrepas: Planrepas): Observable<number> {
+    return this.http
+      .post<number>(this.BASE_URL + "/planrepas/add", planrepas)
+      .pipe(catchError(this.handleError<number>("addPlanrepas")));
+  }
+
+  public modifyPlanrepas(planrepas: Planrepas): Observable<number> {
+    return this.http
+      .patch<number>(this.BASE_URL + "/planrepas/modify", planrepas)
+      .pipe(catchError(this.handleError<number>("modifyPlanrepas")));
+  }
+
+  public deletePlanrepas(planrepas: number): Observable<number> {
+    return this.http
+      .post<number>(this.BASE_URL + "/planrepas/delete/" + planrepas, {})
+      .pipe(catchError(this.handleError<number>("deletePlanrepas")));
   }
 }

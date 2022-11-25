@@ -17,6 +17,8 @@
       <th class="contentCell">NOMBRE CALORIES</th>
       <th class="contentCell">PRIX</th>
       <th class="contentCell">NUMÉRO FOURNISSEUR</th>
+      <th class="contentCell">MODIFIER</th>
+      <th class="contentCell">SUPPRIMER</th>
     </thead>
     <tbody>
       <tr *ngFor="let plan of planrepas; let i = index">
@@ -26,7 +28,28 @@
         <td class="contentCell">{{ plan.nbcalories }}</td>
         <td class="contentCell">{{ plan.prix }}</td>
         <td class="contentCell">{{ plan.numerofournisseur }}</td>
+        <td class="actionCell">
+          <button
+            type="button"
+            class="modifybtn"
+            (click)="modifyPlanrepas(plan)"
+          >
+            <i class="fa fa-edit"></i>
+          </button>
+        </td>
+        <td class="actionCell">
+          <button
+            type="button"
+            class="deletebtn"
+            (click)="deletePlanrepas(plan.numeroplan)"
+          >
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
+  <button type="button" (click)="addPlanrepas()" class="btn">
+    <i class="fa fa-plus"></i>
+  </button>
 </div>
