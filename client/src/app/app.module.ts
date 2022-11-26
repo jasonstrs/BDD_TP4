@@ -9,12 +9,13 @@ import { CommunicationService } from "./services/communication.service";
 import { AppMaterialModule } from "./modules/material.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {
+  DeleteDialogComponent,
   PlanrepasComponent,
   PlanrepasDialogComponent,
 } from "./components/planrepas.component";
 
 @NgModule({
-  declarations: [AppComponent, PlanrepasComponent, PlanrepasDialogComponent],
+  declarations: [AppComponent, PlanrepasComponent, PlanrepasDialogComponent, DeleteDialogComponent],
   imports: [
     CommonModule,
     BrowserModule,

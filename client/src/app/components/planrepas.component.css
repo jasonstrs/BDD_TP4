@@ -11,7 +11,7 @@
 }
 
 .divider {
-  border-bottom: 1px solid #9a75f0;
+  border-bottom: 1px solid red;
   margin: auto;
   width: 50%;
   margin-bottom: 25px;
@@ -19,7 +19,7 @@
 
 .header {
   font-size: 18px;
-  color: #9a75f0;
+  color: red;
 }
 
 .contentCell {
@@ -28,13 +28,13 @@
 
 .table-hover tbody tr:hover td,
 .table-hover tbody tr:hover th {
-  background-color: #9a75f033;
+  background-color: rgb(243, 146, 146);
 }
 
 .btn {
   padding-left: 20px;
   padding-right: 20px;
-  background-color: #9a75f0;
+  background-color: red;
   margin: 20px;
   color: white;
   font-size: 25px;
@@ -52,22 +52,22 @@
 }
 
 .blank_row {
-  color: #9a75f0;
+  color: red;
 }
 
 .blank_row:not(.nohover):hover {
-  color: #9a75f0;
+  color: red;
 }
 
 .actionCell {
   padding: 10px;
-  color: #9a75f0;
+  color: red;
 }
 
 .deletebtn {
   border-radius: 4px;
   color: white;
-  background-color: #9a75f0;
+  background-color: red;
   border-style: none;
 }
 
@@ -76,5 +76,5 @@
   border-style: none;
   margin-right: 10px;
   color: white;
-  background-color: #6e9eeb;
+  background-color: rgb(205, 5, 5);
 }

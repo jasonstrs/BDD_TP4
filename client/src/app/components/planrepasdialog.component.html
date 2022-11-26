@@ -1,7 +1,8 @@
 <h1 mat-dialog-title>Ajoutez un planrepas</h1>
+<p style="font-weight: bold;">Veuillez remplir tous les champs obligatoires pour continuer.</p>
 <div mat-dialog-content>
-  <p>Saisir une catégorie</p>
-  <mat-form-field appearance="fill">
+  <p>Saisir une catégorie*</p>
+  <mat-form-field appearance="fill" style="width: 100%;">
     <mat-label>Catégorie</mat-label>
     <input
       matInput
@@ -14,22 +15,22 @@
     >
   </mat-form-field>
   <p>Saisir une fréquence</p>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" style="width: 100%;">
     <mat-label>Fréquence</mat-label>
     <input matInput type="number" [(ngModel)]="data.planrepas.frequence" />
   </mat-form-field>
   <p>Saisir un nombre de personnes</p>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" style="width: 100%;">
     <mat-label>Nombre de personnes</mat-label>
     <input matInput type="number" [(ngModel)]="data.planrepas.nbpersonnes" />
   </mat-form-field>
   <p>Saisir un nombre de calories</p>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" style="width: 100%;">
     <mat-label>Nombre de calories</mat-label>
     <input matInput type="number" [(ngModel)]="data.planrepas.nbcalories" />
   </mat-form-field>
-  <p>Saisir un prix</p>
-  <mat-form-field appearance="fill">
+  <p>Saisir un prix*</p>
+  <mat-form-field appearance="fill" style="width: 100%;">
     <mat-label>Prix</mat-label>
     <input
       matInput
@@ -39,14 +40,16 @@
     />
     <mat-error *ngIf="!data.planrepas.prix">Le prix est obligatoire</mat-error>
   </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Choisissez un fournisseur</mat-label>
-    <mat-select [(ngModel)]="data.planrepas.numerofournisseur">
+  <mat-label style="margin-bottom: 12px;">Choisissez un fournisseur*</mat-label>
+  <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>Choix</mat-label>
+    <mat-select [(ngModel)]="data.planrepas.numerofournisseur" required="true">
       <mat-option
         *ngFor="let fournisseur of data.fournisseurs"
         [value]="fournisseur.numerofournisseur"
-        >{{ fournisseur.nomfournisseur }} --
-        {{ fournisseur.numerofournisseur }}</mat-option
+        >
+          {{ fournisseur.numerofournisseur }} -- {{ fournisseur.nomfournisseur || 'Inconnu' }}
+        </mat-option
       >
     </mat-select>
   </mat-form-field>
@@ -55,20 +58,10 @@
   <button mat-button (click)="onNoClick()">Annuler</button>
   <button
     mat-button
-    [disabled]="!data.planrepas.categorie || !data.planrepas.prix"
+    [disabled]="!data.planrepas.categorie || !data.planrepas.prix || !data.planrepas.numerofournisseur"
     [mat-dialog-close]="data"
-    *ngIf="data.planrepas.numeroplan"
     cdkFocusInitial
   >
-    Modifier un planrepas
-  </button>
-  <button
-    mat-button
-    [disabled]="!data.planrepas.categorie || !data.planrepas.prix"
-    [mat-dialog-close]="data"
-    *ngIf="!data.planrepas.numeroplan"
-    cdkFocusInitial
-  >
-    Ajouter un planrepas
+    {{ data.planrepas.numeroplan ? 'Modifier' : 'Ajouter' }}
   </button>
 </div>

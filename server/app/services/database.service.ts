@@ -46,12 +46,20 @@ export class DatabaseService {
 
     let modifiedValues = [];
 
+    const freq = planrepas.frequence ? `'${planrepas.frequence}'` : 'NULL'
+    const nbPersonnes = planrepas.nbpersonnes ? `'${planrepas.nbpersonnes}'` : 'NULL'
+    const nbCalories = planrepas.nbcalories ? `'${planrepas.nbcalories}'` : 'NULL'
+
+
     modifiedValues.push(`categorie = '${planrepas.categorie}'`);
-    modifiedValues.push(`frequence = '${planrepas.frequence}'`);
-    modifiedValues.push(`nbpersonnes = '${planrepas.nbpersonnes}'`);
-    modifiedValues.push(`nbcalories = '${planrepas.nbcalories}'`);
+    modifiedValues.push(`frequence = ${freq}`);
+    modifiedValues.push(`nbpersonnes = ${nbPersonnes}`);
+    modifiedValues.push(`nbcalories = ${nbCalories}`);
     modifiedValues.push(`prix = '${planrepas.prix}'`);
     modifiedValues.push(`numerofournisseur = '${planrepas.numerofournisseur}'`);
+
+    console.log(planrepas)
+    console.log(modifiedValues)
 
     const query = `UPDATE Planrepas SET ${modifiedValues.join(
       ", "

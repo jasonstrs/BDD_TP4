@@ -1,5 +1,5 @@
-<div id="planrepas">
-  <h1>Planrepas</h1>
+<div id="planrepas"  style="height: calc(100vh - 51px);">
+  <h1 style="font-size: 24px; font-weight: bold;">Planrepas</h1>
 
   <div class="divider"></div>
 
@@ -13,6 +13,7 @@
     <thead class="header">
       <th class="contentCell">NUMÉRO PLAN</th>
       <th class="contentCell">CATÉGORIE</th>
+      <th class="contentCell">FRÉQUENCE</th>
       <th class="contentCell">NOMBRE PERSONNES</th>
       <th class="contentCell">NOMBRE CALORIES</th>
       <th class="contentCell">PRIX</th>
@@ -22,11 +23,12 @@
     </thead>
     <tbody>
       <tr *ngFor="let plan of planrepas; let i = index">
-        <td class="contentCell">{{ plan.numeroplan }}</td>
+        <td class="contentCell"><b>{{ plan.numeroplan }}</b></td>
         <td class="contentCell">{{ plan.categorie }}</td>
-        <td class="contentCell">{{ plan.nbpersonnes }}</td>
-        <td class="contentCell">{{ plan.nbcalories }}</td>
-        <td class="contentCell">{{ plan.prix }}</td>
+        <td class="contentCell">{{ plan.frequence || 'N/A' }}</td>
+        <td class="contentCell">{{ plan.nbpersonnes || 'N/A' }}</td>
+        <td class="contentCell">{{ plan.nbcalories|| 'N/A' }}</td>
+        <td class="contentCell">{{ plan.prix }} €</td>
         <td class="contentCell">{{ plan.numerofournisseur }}</td>
         <td class="actionCell">
           <button
@@ -50,6 +52,7 @@
     </tbody>
   </table>
   <button type="button" (click)="addPlanrepas()" class="btn">
+    <span style="margin-right: 12px;">Ajouter un planrepas</span>
     <i class="fa fa-plus"></i>
   </button>
 </div>

@@ -58,11 +58,11 @@ export class PlanrepasComponent implements OnInit {
             planrepas: {
               numeroplan: undefined,
               categorie: "",
-              frequence: undefined,
-              nbpersonnes: undefined,
-              nbcalories: undefined,
-              prix: undefined,
-              numerofournisseur: undefined,
+              frequence: 6,
+              nbpersonnes: 4,
+              nbcalories: 800,
+              prix: 15,
+              numerofournisseur: 1,
             },
             fournisseurs,
           },
@@ -80,28 +80,61 @@ export class PlanrepasComponent implements OnInit {
   }
 
   public modifyPlanrepas(planrepas: Planrepas): void {
-    const dialogRef = this.dialog.open(PlanrepasDialogComponent, {
+    this.communicationService
+      .getFournisseurs()
+      .subscribe((fournisseurs: any[]) => {
+        this.fournisseurs = fournisseurs;
+        const dialogRef = this.dialog.open(PlanrepasDialogComponent, {
+          width: "500px",
+          data: {
+            planrepas: { ...planrepas },
+            fournisseurs,
+          },
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+          if (result)
+            this.communicationService.modifyPlanrepas(result.planrepas).subscribe(() => {
+              console.log(result.planrepas);
+              this.planrepas = this.planrepas.map((plan) => {
+                if (plan.numeroplan === result.planrepas.numeroplan) return result.planrepas;
+                return plan;
+              });
+            });
+        });
+      });
+  }
+
+  public deletePlanrepas(numeroplan: number): void {
+    console.log(numeroplan)
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: "500px",
-      data: { ...planrepas },
+      data: { numeroplan },
     });
+
     dialogRef.afterClosed().subscribe((result) => {
       if (result)
-        this.communicationService.modifyPlanrepas(result).subscribe(() => {
-          console.log(result);
-          this.planrepas = this.planrepas.map((plan) => {
-            if (plan.numeroplan === result.numeroplan) return result;
-            return plan;
+        this.communicationService.deletePlanrepas(numeroplan).subscribe(() => {
+          this.planrepas = this.planrepas.filter((plan) => {
+            return plan.numeroplan !== numeroplan;
           });
         });
     });
   }
+}
 
-  public deletePlanrepas(planrepas: number): void {
-    this.communicationService.deletePlanrepas(planrepas).subscribe(() => {
-      this.planrepas = this.planrepas.filter((plan) => {
-        return plan.numeroplan !== planrepas;
-      });
-    });
+@Component({
+  selector: "delete-dialog-component",
+  templateUrl: "./deletedialog.component.html",
+})
+export class DeleteDialogComponent {
+  constructor(
+    public dialogRef: MatDialogRef<DeleteDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }
 
